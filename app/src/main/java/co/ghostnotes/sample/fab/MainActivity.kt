@@ -2,7 +2,6 @@ package co.ghostnotes.sample.fab
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log
 import android.view.Menu
@@ -37,11 +36,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun animateSubFabFirstOpen() {
-        animateSubFab(0F, -64F)
+        animateSubFab(SUB_FAB_TRANSLATION_Y_FROM_DP, SUB_FAB_TRANSLATION_Y_TO_DP)
     }
 
     private fun animateSubFabFirstClose() {
-        animateSubFab(-64F, 0F)
+        animateSubFab(SUB_FAB_TRANSLATION_Y_TO_DP, SUB_FAB_TRANSLATION_Y_FROM_DP)
     }
 
     private fun animateSubFab(fromDp: Float, toDp: Float) {
@@ -93,6 +92,9 @@ class MainActivity : AppCompatActivity() {
         private const val FAB_ROTATION_DEFAULT = 0F
         private const val FAB_ROTATION_VALUE = -135F
         private const val FAB_ROTATION_DURATION = 100L
+
+        private const val SUB_FAB_TRANSLATION_Y_FROM_DP = 0F
+        private const val SUB_FAB_TRANSLATION_Y_TO_DP = -64F
 
         private const val SUB_FAB_TRANSLATE_DURATION = 100L
 
