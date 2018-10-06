@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Android Fab Sample</string>
     <string name="action_settings">Settings</string>
+
+    <string name="snackbar_message_fab_clicked_open">Fab is clicked. (OPEN)</string>
+    <string name="snackbar_message_fab_clicked_close">Fab is clicked. (CLOSE)</string>
+
 </resources>

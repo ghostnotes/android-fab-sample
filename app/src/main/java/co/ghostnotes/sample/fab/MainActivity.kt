@@ -2,10 +2,13 @@ package co.ghostnotes.sample.fab
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.support.annotation.StringRes
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import co.ghostnotes.sample.R
 import co.ghostnotes.sample.fab.utils.UIUtil
 
@@ -31,8 +34,21 @@ class MainActivity : AppCompatActivity() {
                 animateSubFabFirstOpen()
             }
 
+            showSnackbar(fab,
+                    if (isFabOpened)  R.string.snackbar_message_fab_clicked_close
+                    else R.string.snackbar_message_fab_clicked_open)
+
+            // Change the state of the FAB.
             isFabOpened = !isFabOpened
         }
+    }
+
+    private fun showSnackbar(view: View, @StringRes resId: Int) {
+        showSnackbar(view, getString(resId))
+    }
+
+    private fun showSnackbar(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun animateSubFabFirstOpen() {
