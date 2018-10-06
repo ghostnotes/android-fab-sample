@@ -28,40 +28,58 @@ class MainActivity : AppCompatActivity() {
 
             if (isFabOpened) {
                 animateFabClose()
-                animateSubFabFirstClose()
+                animateCloseSubFabFirst()
+                animateCloseSubFabSecond()
             } else {
                 animateFabOpen()
-                animateSubFabFirstOpen()
+                animateOpenSubFabFirst()
+                animateOpenSubFabSecond()
             }
 
-            showSnackbar(fab,
-                    if (isFabOpened)  R.string.snackbar_message_fab_clicked_close
-                    else R.string.snackbar_message_fab_clicked_open)
+            //showSnackbar(fab,
+            //        if (isFabOpened)  R.string.snackbar_message_fab_clicked_close
+            //        else R.string.snackbar_message_fab_clicked_open)
 
             // Change the state of the FAB.
             isFabOpened = !isFabOpened
         }
     }
 
-    private fun showSnackbar(view: View, @StringRes resId: Int) {
-        showSnackbar(view, getString(resId))
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 
-    private fun showSnackbar(view: View, message: String) {
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
-    private fun animateSubFabFirstOpen() {
-        animateSubFab(SUB_FAB_TRANSLATION_Y_FROM_DP, SUB_FAB_TRANSLATION_Y_TO_DP)
+    private fun animateOpenSubFabFirst() {
+        translateSubFab(sub_fab_first, FIRST_SUB_FAB_TRANSLATION_Y_FROM_DP, FIRST_SUB_FAB_TRANSLATION_Y_TO_DP)
     }
 
-    private fun animateSubFabFirstClose() {
-        animateSubFab(SUB_FAB_TRANSLATION_Y_TO_DP, SUB_FAB_TRANSLATION_Y_FROM_DP)
+    private fun animateCloseSubFabFirst() {
+        translateSubFab(sub_fab_first, FIRST_SUB_FAB_TRANSLATION_Y_TO_DP, FIRST_SUB_FAB_TRANSLATION_Y_FROM_DP)
     }
 
-    private fun animateSubFab(fromDp: Float, toDp: Float) {
+    private fun animateOpenSubFabSecond() {
+        translateSubFab(sub_fab_second, SECOND_SUB_FAB_TRANSLATION_Y_FROM_DP, SECOND_SUB_FAB_TRANSLATION_Y_TO_DP)
+    }
+
+    private fun animateCloseSubFabSecond() {
+        translateSubFab(sub_fab_second, SECOND_SUB_FAB_TRANSLATION_Y_TO_DP, FIRST_SUB_FAB_TRANSLATION_Y_FROM_DP)
+    }
+
+    private fun translateSubFab(subFab: View, fromDp: Float, toDp: Float) {
         ObjectAnimator.ofFloat(
-                sub_fab_first,
+                subFab,
                 ANIMATION_PROPERTY_NAME_TRANSLATION_Y,
                 UIUtil.convertDpToPx(this, fromDp),
                 UIUtil.convertDpToPx(this, toDp)
@@ -86,20 +104,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    private fun showSnackbar(view: View, @StringRes resId: Int) {
+        showSnackbar(view, getString(resId))
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+    private fun showSnackbar(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
     }
 
     companion object {
@@ -109,8 +119,10 @@ class MainActivity : AppCompatActivity() {
         private const val FAB_ROTATION_VALUE = -135F
         private const val FAB_ROTATION_DURATION = 100L
 
-        private const val SUB_FAB_TRANSLATION_Y_FROM_DP = 0F
-        private const val SUB_FAB_TRANSLATION_Y_TO_DP = -64F
+        private const val FIRST_SUB_FAB_TRANSLATION_Y_FROM_DP = 0F
+        private const val FIRST_SUB_FAB_TRANSLATION_Y_TO_DP = -64F
+        private const val SECOND_SUB_FAB_TRANSLATION_Y_FROM_DP = 0F
+        private const val SECOND_SUB_FAB_TRANSLATION_Y_TO_DP = -120F
 
         private const val SUB_FAB_TRANSLATE_DURATION = 100L
 
